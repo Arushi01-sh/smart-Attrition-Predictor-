@@ -1,0 +1,554 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+```
+    <!-- HEADER -->
+    <div class="d-flex align-items-center mb-4">
+        <div class="bg-white p-2 rounded-circle shadow-sm me-3">
+            <i class="fa-solid fa-wand-magic-sparkles fa-2x text-primary"></i>
+        </div>
+
+        <div>
+            <h4 class="fw-bold mb-1">AI Prediction Engine</h4>
+            <p class="text-muted m-0">
+                Enter employee details to predict attrition risk.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- RESULT -->
+    {% if Attrition %}
+    <div class="card mb-4 border-0 shadow-sm overflow-hidden">
+
+        <div class="card-body p-0 d-flex">
+
+            <div class="p-4 d-flex align-items-center justify-content-center
+                {% if Attrition == 1 %}bg-danger{% else %}bg-success{% endif %}
+                text-white"
+                style="width: 100px;">
+
+                <i class="fa-solid
+                    {% if Attrition == 1 %}
+                        fa-triangle-exclamation
+                    {% else %}
+                        fa-check-circle
+                    {% endif %}
+                    fa-3x">
+                </i>
+
+            </div>
+
+            <div class="p-4 flex-grow-1 bg-white">
+
+                {% if Attrition == 1 %}
+
+                    <h4 class="fw-bold text-danger">
+                        High Attrition Risk
+                    </h4>
+
+                    <p class="mb-0 text-muted">
+                        The model predicts that this employee may be at
+                        <strong class="text-danger">high risk</strong>
+                        of leaving the organization.
+                    </p>
+
+                {% else %}
+
+                    <h4 class="fw-bold text-success">
+                        Low Attrition Risk
+                    </h4>
+
+                    <p class="mb-0 text-muted">
+                        The model predicts that this employee is at
+                        <strong class="text-success">low risk</strong>
+                        of leaving the organization.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+
+
+    <!-- FORM -->
+    <div class="card p-5 border-0 shadow-lg">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- ================= PERSONAL INFORMATION ================= -->
+
+            <h5 class="fw-bold text-muted mb-4 text-uppercase small">
+                <i class="fa-solid fa-user me-2"></i>
+                Personal Information
+            </h5>
+
+            <div class="row g-4 mb-4">
+
+                <!-- AGE -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Age
+                    </label>
+
+                    <input type="number"
+                           name="Age"
+                           class="form-control"
+                           required
+                           min="18"
+                           max="100"
+                           placeholder="e.g. 35">
+
+                </div>
+
+
+                <!-- DISTANCE -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Distance From Home (km)
+                    </label>
+
+                    <input type="number"
+                           name="DistanceFromHome"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 10">
+
+                </div>
+
+
+                <!-- MARITAL STATUS -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Marital Status
+                    </label>
+
+                    <select name="MaritalStatus"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Divorced">Divorced</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <hr class="my-4 text-muted opacity-25">
+
+
+            <!-- ================= JOB INFORMATION ================= -->
+
+            <h5 class="fw-bold text-muted mb-4 text-uppercase small">
+                <i class="fa-solid fa-briefcase me-2"></i>
+                Job Information
+            </h5>
+
+            <div class="row g-4 mb-4">
+
+
+                
+            <!-- JOB ROLE -->
+            <div class="col-md-6">
+            
+                <label class="form-label fw-bold small">
+                    Job Role
+                </label>
+            
+                <input type="text"
+                       name="JobRole"
+                       class="form-control"
+                       required
+                       placeholder="Enter your job role">
+            
+            </div>
+
+
+
+                <!-- JOB LEVEL -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Job Level
+                    </label>
+
+                    <select name="JobLevel"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select Job Level</option>
+                        <option value="1">1 - Entry Level</option>
+                        <option value="2">2 - Junior</option>
+                        <option value="3">3 - Mid Level</option>
+                        <option value="4">4 - Senior</option>
+                        <option value="5">5 - Executive</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DAILY RATE -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Daily Rate
+                    </label>
+
+                    <input type="number"
+                           name="DailyRate"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 800">
+
+                </div>
+
+
+                <!-- MONTHLY INCOME -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Monthly Income
+                    </label>
+
+                    <input type="number"
+                           name="MonthlyIncome"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 5000">
+
+                </div>
+
+
+                <!-- NUM COMPANIES -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Previous Companies Worked
+                    </label>
+
+                    <input type="number"
+                           name="NumCompaniesWorked"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 2">
+
+                </div>
+
+
+                <!-- TOTAL WORKING YEARS -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Total Working Years
+                    </label>
+
+                    <input type="number"
+                           name="TotalWorkingYears"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 8">
+
+                </div>
+
+
+                <!-- YEARS AT COMPANY -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Years At Company
+                    </label>
+
+                    <input type="number"
+                           name="YearsAtCompany"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 5">
+
+                </div>
+
+
+                <!-- YEARS IN CURRENT ROLE -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Years In Current Role
+                    </label>
+
+                    <input type="number"
+                           name="YearsInCurrentRole"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 3">
+
+                </div>
+
+
+                <!-- YEARS WITH MANAGER -->
+                <div class="col-md-4">
+
+                    <label class="form-label fw-bold small">
+                        Years With Current Manager
+                    </label>
+
+                    <input type="number"
+                           name="YearsWithCurrManager"
+                           class="form-control"
+                           required
+                           min="0"
+                           placeholder="e.g. 2">
+
+                </div>
+
+            </div>
+
+
+            <hr class="my-4 text-muted opacity-25">
+
+
+            <!-- ================= WORK ENVIRONMENT ================= -->
+
+            <h5 class="fw-bold text-muted mb-4 text-uppercase small">
+                <i class="fa-solid fa-building me-2"></i>
+                Work Environment
+            </h5>
+
+            <div class="row g-4 mb-4">
+
+
+                <!-- ENVIRONMENT SATISFACTION -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Environment Satisfaction
+                    </label>
+
+                    <select name="EnvironmentSatisfaction"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="1">1 - Low</option>
+                        <option value="2">2 - Medium</option>
+                        <option value="3">3 - High</option>
+                        <option value="4">4 - Very High</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- JOB INVOLVEMENT -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Job Involvement
+                    </label>
+
+                    <select name="JobInvolvement"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="1">1 - Low</option>
+                        <option value="2">2 - Medium</option>
+                        <option value="3">3 - High</option>
+                        <option value="4">4 - Very High</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- JOB SATISFACTION -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Job Satisfaction
+                    </label>
+
+                    <select name="JobSatisfaction"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="1">1 - Low</option>
+                        <option value="2">2 - Medium</option>
+                        <option value="3">3 - High</option>
+                        <option value="4">4 - Very High</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- RELATIONSHIP SATISFACTION -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Relationship Satisfaction
+                    </label>
+
+                    <select name="RelationshipSatisfaction"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="1">1 - Low</option>
+                        <option value="2">2 - Medium</option>
+                        <option value="3">3 - High</option>
+                        <option value="4">4 - Very High</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- WORK LIFE BALANCE -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Work Life Balance
+                    </label>
+
+                    <select name="WorkLifeBalance"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="1">1 - Bad</option>
+                        <option value="2">2 - Good</option>
+                        <option value="3">3 - Better</option>
+                        <option value="4">4 - Best</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <hr class="my-4 text-muted opacity-25">
+
+
+            <!-- ================= WORK CONDITIONS ================= -->
+
+            <h5 class="fw-bold text-muted mb-4 text-uppercase small">
+                <i class="fa-solid fa-clock me-2"></i>
+                Work Conditions
+            </h5>
+
+            <div class="row g-4 mb-4">
+
+
+                <!-- OVERTIME -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Overtime
+                    </label>
+
+                    <select name="OverTime"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STOCK OPTION -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Stock Option Level
+                    </label>
+
+                    <select name="StockOptionLevel"
+                            class="form-select"
+                            required>
+
+                        <option value="">Select</option>
+                        <option value="0">0 - None</option>
+                        <option value="1">1 - Low</option>
+                        <option value="2">2 - Medium</option>
+                        <option value="3">3 - High</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TRAINING -->
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold small">
+                        Training Times Last Year
+                    </label>
+
+                    <input type="number"
+                           name="TrainingTimesLastYear"
+                           class="form-control"
+                           required
+                           min="0"
+                           max="20"
+                           placeholder="e.g. 3">
+
+                </div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <div class="mt-4 text-end">
+
+                <button type="submit"
+                        class="btn btn-primary btn-lg px-4 shadow-sm">
+
+                    <i class="fa-solid fa-bolt me-2"></i>
+                    Run Prediction
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}

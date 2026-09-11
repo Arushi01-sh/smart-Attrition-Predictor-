@@ -11,13 +11,13 @@ import joblib
 from django.core.paginator import Paginator
 
 #importing joblib files we saved 
-preprocessor=joblib.load(r"E:\data\employe_model\ml_model\catagorical_columns_encode.joblib")
-pipeline_d=joblib.load(r"E:\data\employe_model\ml_model\employ_attrition_pipeline.joblib")
-pt_distance=joblib.load(r"E:\data\employe_model\ml_model\DistanceFromHome.joblib")
-pt_income=joblib.load(r"E:\data\employe_model\ml_model\MonthlyIncome.joblib")
-pt_companies=joblib.load(r"E:\data\employe_model\ml_model\NumCompaniesWorked.joblib")
-pt_total_years=joblib.load(r"E:\data\employe_model\ml_model\total_working_years_power.joblib")
-pt_company_years=joblib.load(r"E:\data\employe_model\ml_model\years_at_company_power.joblib")
+preprocessor=joblib.load(catagorical_columns_encode.joblib")
+pipeline_d=joblib.load(employ_attrition_pipeline.joblib")
+pt_distance=joblib.load(ml_model\DistanceFromHome.joblib")
+pt_income=joblib.load(MonthlyIncome.joblib")
+pt_companies=joblib.load(NumCompaniesWorked.joblib")
+pt_total_years=joblib.load(total_working_years_power.joblib")
+pt_company_years=joblib.load(years_at_company_power.joblib")
 
 def dashboard (request):
     #total headcount
